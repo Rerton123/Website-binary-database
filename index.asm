@@ -190,7 +190,6 @@ main:
                     jne .skipb
                         mov [ArgL],r9
                         mov bl,"'"
-                        mov byte [query+r9+41],bl; closes querry with '
                         bts r10,0
                         mov r9,0
                         mov esi,0
@@ -205,13 +204,11 @@ main:
                                 mov bl,[rax+rcx]
                                 mov byte [LoginUser+r9],bl
                                 mov byte [CkUserL+r9+17],bl
-                                mov byte [query+r9+41],bl
                                 inc r9
                                 jmp .skip2
                             .post2a:
                                 mov bl,[rax+rcx]
                                 mov byte [LoginPass+r9],bl
-                                mov byte [CkPassL+r9+17],bl
                                 inc r9
                                 jmp .skip2
                         .RegPostA:
@@ -220,7 +217,6 @@ main:
                                 mov bl,[rax+rcx]
                                 mov byte [RegUser+r9],bl
                                 mov byte [CkUserR+r9+17],bl
-                                mov byte [query+r9+41],bl
                                 inc r9
                                 jmp .skip2
                             .post2b:
@@ -234,8 +230,9 @@ main:
             .skip3:
             
         .no_post:
-        print h1,h1l,[req + 16]
         Log
+        print h1,h1l,[req + 16]
+        
         
         
         print debugA,16,[req + 16]
@@ -274,8 +271,6 @@ main:
             mov byte [CkToken+ecx+16],0
             dec ecx
             jnz .ClearPostL
-        mov byte [query+57], 0
-        mov qword [SqlArrayL],0
         mov byte [TestM],0
         mov byte [TestM],0
         mov qword [HashN],0
